@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@theme {
+  /* Refined Dark Obsidian / Charcoal Palette */
+  --color-bg-primary: #090b10;
+  --color-bg-secondary: #0f1118;
+  --color-bg-tertiary: #141722;
+  --color-bg-card: #10131d;
+  --color-bg-elevated: #161a28;
+
+  /* Text Colors */
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #a1a1aa;
+  --color-text-muted: #71717a;
+
+  /* Cyber Indigo / Purple / Emerald / Cyan Accents */
+  --color-accent: #6366f1;
+  --color-accent-hover: #818cf8;
+  --color-accent-purple: #a855f7;
+  --color-accent-emerald: #34d399;
+  --color-accent-cyan: #38bdf8;
+
+  --color-accent-glow: rgba(99, 102, 241, 0.18);
+  --color-purple-glow: rgba(168, 85, 247, 0.15);
+  --color-emerald-glow: rgba(52, 211, 153, 0.15);
+  --color-blue-glow: rgba(56, 189, 248, 0.15);
+
+  /* Refined Subtle Borders */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(99, 102, 241, 0.3);
+
+  /* Glassmorphism */
+  --color-glass: rgba(16, 19, 29, 0.75);
+  --color-glass-border: rgba(255, 255, 255, 0.09);
+
+  /* Typography */
+  --font-heading: var(--font-heading);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+/* Base styles */
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+    max-width: 100%;
+    background-color: #090b10;
+  }
+
+  body {
+    background-color: #090b10;
+    color: #d4d4d8;
+    font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow-x: clip;
+    max-width: 100%;
+    line-height: 1.6;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #090b10;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Selection */
+::selection {
+  background: #6366f1;
+  color: #ffffff;
+}
+
+/* Subtle, elegant ambient atmospheric lighting - NOT an all-blue wash */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    radial-gradient(ellipse 65% 50% at 15% 10%, rgba(99, 102, 241, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 45% at 85% 20%, rgba(168, 85, 247, 0.05) 0%, transparent 65%),
+    radial-gradient(ellipse 70% 55% at 50% 65%, rgba(56, 189, 248, 0.035) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 20% 90%, rgba(99, 102, 241, 0.04) 0%, transparent 60%);
+}
+
+/* Fine noise texture */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  pointer-events: none;
+  opacity: 0.025;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Glass utility */
+.glass {
+  background: rgba(16, 19, 29, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-strong {
+  background: rgba(14, 16, 24, 0.9);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Kinetic Chonky Underline Effect */
+.chonky-underline {
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+}
+.chonky-underline::after {
+  content: "";
+  position: absolute;
+  bottom: 8%;
+  left: -2%;
+  width: 104%;
+  height: 0.32em;
+  background: #6366f1;
+  z-index: -1;
+  transition: height 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.chonky-underline:hover::after {
+  height: 0.85em;
+}
+
+/* Section base */
+section {
+  position: relative;
+}
+

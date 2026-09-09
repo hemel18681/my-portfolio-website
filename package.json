@@ -1,0 +1,39 @@
+{
+  "name": "asif-uddin-ahmed-hemel-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@google/genai": "^1.17.0",
+    "@react-three/drei": "^10.0.6",
+    "@react-three/fiber": "^9.1.2",
+    "@react-three/rapier": "^2.1.0",
+    "clsx": "^2.1.1",
+    "gsap": "^3.12.7",
+    "lucide-react": "^0.475.0",
+    "meshline": "^3.3.1",
+    "motion": "^12.23.24",
+    "next": "^15.1.7",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "tailwind-merge": "^3.0.0",
+    "three": "^0.174.0",
+    "zustand": "^5.0.11"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/three": "^0.174.0",
+    "tailwindcss": "^4.1.11",
+    "typescript": "^5.7.0"
+  }
+}
