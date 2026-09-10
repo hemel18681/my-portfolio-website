@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from 'motion/react'
 import { X, ExternalLink, Github } from 'lucide-react'
 import Image from 'next/image'
+import { SITE_URL } from '@/lib/data'
 
 interface Project {
   id: string
@@ -14,6 +15,13 @@ interface Project {
   metrics?: Record<string, string | undefined>
   liveUrl?: string
   githubUrl?: string
+  seo?: {
+    keywords?: string[]
+    ogTitle?: string
+    ogDescription?: string
+    twitterTitle?: string
+    twitterDescription?: string
+  }
 }
 
 interface ProjectModalProps {

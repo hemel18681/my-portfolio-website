@@ -231,6 +231,54 @@ const jsonLdProfilePage = {
   lastReviewed: new Date().toISOString(),
 }
 
+const jsonLdExpenseTracker = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Expense Tracker Mobile',
+  applicationCategory: 'Finance Application',
+  operatingSystem: 'Android',
+  description:
+    'Local-first Android finance app for expenses, accounts, investments, loans, reports, and multi-currency tracking — built with Expo, React Native & TypeScript.',
+  url: 'https://expense-tracker-mobile-portfolio.vercel.app/',
+  downloadUrl: 'https://expense-tracker-mobile-portfolio.vercel.app/',
+  softwareVersion: '1.0.0',
+  author: {
+    '@type': 'Person',
+    name: 'Asif Uddin Ahmed Hemel',
+    url: SITE_URL,
+  },
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  keywords: [
+    'Expense Tracker Android',
+    'React Native Finance App',
+    'Expo Mobile App',
+    'Local-first Finance App',
+    'Personal Finance Manager',
+    'Expense Tracker App',
+    'Multi-currency Tracker',
+    'Expo TypeScript App',
+    'Zustand State Management',
+    'Android Finance App',
+    'Expense Manager Mobile',
+    'Budget Tracker App',
+    'Financial Dashboard Mobile',
+  ],
+  features: [
+    'Expense tracking',
+    'Account management',
+    'Investment tracking',
+    'Loan management',
+    'Multi-currency support',
+    'Light/dark themes',
+    'Portable JSON backup & restore',
+    'On-device local-first storage',
+  ],
+}
+
 /* ------------------------------------------------------------------ */
 /*  Root Layout                                                         */
 /* ------------------------------------------------------------------ */
@@ -264,6 +312,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdProfilePage) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdExpenseTracker) }}
         />
 
         {children}

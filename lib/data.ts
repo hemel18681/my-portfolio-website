@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://asifhemel.dev'
+export const SITE_URL = 'https://hemel18681.netlify.app/'
 
 export const profile = {
   name: 'Asif Uddin Ahmed Hemel',
@@ -221,13 +221,36 @@ export const projects = [
     id: 'expense-tracker-mobile',
     title: 'Expense Tracker Mobile',
     category: 'Personal - Mobile',
-    description: 'Local-first Android finance app for expenses, accounts, investments, loans, reports, and multi-currency tracking.',
-    fullDescription: 'Built a private, local-first personal finance application for Android with feature parity across expenses, cash and bank accounts, cards, mobile financial services, investments, loans, categories, and reports. The Expo and React Native app stores day-to-day financial data on-device, supports exchange rates and light/dark themes, and gives users portable JSON backup and restore. APK v1.0.0 is available for Android.',
+    description: 'Local-first Android finance app for expenses, accounts, investments, loans, reports, and multi-currency tracking — built with Expo, React Native & TypeScript.',
+    fullDescription: 'Built a private, local-first personal finance application for Android with feature parity across expenses, cash and bank accounts, cards, mobile financial services, investments, loans, categories, and reports. The Expo and React Native app stores day-to-day financial data on-device, supports exchange rates and light/dark themes, and gives users portable JSON backup and restore. APK v1.0.0 is available for Android. Designed for privacy-conscious users who need full financial control without cloud dependency.',
     tech: ['Expo', 'React Native', 'TypeScript', 'Zustand', 'AsyncStorage', 'Zod'],
     image: '/assets/images/projects/expense-tracker-mobile-cover-v2.png',
     metrics: { release: 'v1.0.0', modules: '10+', storage: 'Local-first' },
     liveUrl: 'https://expense-tracker-mobile-portfolio.vercel.app/',
     githubUrl: 'https://github.com/hemel18681/expense-tracker-mobile-portfolio',
+    seo: {
+      keywords: [
+        'Expense Tracker Android',
+        'React Native Finance App',
+        'Expo Mobile App',
+        'Local-first Finance App',
+        'Personal Finance Manager',
+        'Expense Tracker App',
+        'Multi-currency Tracker',
+        'Expo TypeScript App',
+        'Zustand State Management',
+        'Android Finance App',
+        'Expense Manager Mobile',
+        'Budget Tracker App',
+        'Financial Dashboard Mobile',
+      ],
+      ogTitle: 'Expense Tracker Mobile — React Native & Expo Finance App',
+      ogDescription:
+        'Local-first Android finance app built with Expo & React Native. Track expenses, manage accounts, investments, loans, and multi-currency with portable JSON backup.',
+      twitterTitle: 'Expense Tracker Mobile — React Native Finance App',
+      twitterDescription:
+        'Local-first Android finance app built with Expo & React Native. Track expenses, manage accounts, investments, loans, and multi-currency with portable JSON backup.',
+    },
   },
 ]
 

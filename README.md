@@ -2,7 +2,7 @@
 
 Personal portfolio of **Asif Uddin Ahmed Hemel**, Senior Software Engineer (4.5+ years). The site presents professional experience, projects, skills, and an AI tools suite.
 
-**Live:** [asifhemel.dev](https://asifhemel.dev) · **GitHub:** [hemel18681](https://github.com/hemel18681)
+**Live:** [asifhemel](https://hemel18681.netlify.app/) · **GitHub:** [hemel18681](https://github.com/hemel18681)
 
 ## Stack
 
