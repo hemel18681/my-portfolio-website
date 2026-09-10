@@ -226,8 +226,8 @@ export const projects = [
     tech: ['Expo', 'React Native', 'TypeScript', 'Zustand', 'AsyncStorage', 'Zod'],
     image: '/assets/images/projects/expense-tracker-mobile-cover-v2.png',
     metrics: { release: 'v1.0.0', modules: '10+', storage: 'Local-first' },
-    liveUrl: '',
-    githubUrl: '',
+    liveUrl: 'https://expense-tracker-mobile-portfolio.vercel.app/',
+    githubUrl: 'https://github.com/hemel18681/expense-tracker-mobile-portfolio',
   },
 ]
 
