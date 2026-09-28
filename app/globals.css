@@ -87,30 +87,24 @@
   color: #ffffff;
 }
 
-/* Subtle, elegant ambient atmospheric lighting - NOT an all-blue wash */
+/*
+  Ambient atmospheric lighting.
+  Use will-change: transform + contain: strict to promote to its own
+  compositor layer so it never triggers style recalc on scroll.
+*/
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  /* Simplified to 2 gradients (down from 4) — reduces paint cost */
   background-image:
     radial-gradient(ellipse 65% 50% at 15% 10%, rgba(99, 102, 241, 0.06) 0%, transparent 70%),
-    radial-gradient(ellipse 60% 45% at 85% 20%, rgba(168, 85, 247, 0.05) 0%, transparent 65%),
-    radial-gradient(ellipse 70% 55% at 50% 65%, rgba(56, 189, 248, 0.035) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 40% at 20% 90%, rgba(99, 102, 241, 0.04) 0%, transparent 60%);
-}
-
-/* Fine noise texture */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9000;
-  pointer-events: none;
-  opacity: 0.025;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    radial-gradient(ellipse 60% 45% at 85% 20%, rgba(168, 85, 247, 0.05) 0%, transparent 65%);
+  /* Promote to GPU layer — eliminates per-scroll repaint */
+  will-change: transform;
+  contain: strict;
 }
 
 /* Glass utility */
@@ -153,4 +147,3 @@ body::after {
 section {
   position: relative;
 }
-

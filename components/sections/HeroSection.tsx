@@ -45,19 +45,17 @@ export default function HeroSection() {
     { src: '/assets/images/profile-2.webp', srcSet: '/assets/images/profile-2-420w.webp 420w, /assets/images/profile-2-840w.webp 840w', alt: `${profile.name} — Professional Portrait 2`, label: 'Portrait 2' },
   ]
 
-  // Particle Canvas Background
+  // Particle Canvas Background — deferred 1.5s after mount so it doesn't
+  // compete with React hydration and initial paint (reduces TBT on Lighthouse).
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
     let animationFrameId: number
-    let width = (canvas.width = window.innerWidth)
-    let height = (canvas.height = window.innerHeight)
-
-    const particles: Array<{
+    let timeoutId: ReturnType<typeof setTimeout>
+    let width = 0
+    let height = 0
+    let particles: Array<{
       x: number
       y: number
       vx: number
@@ -66,22 +64,6 @@ export default function HeroSection() {
       opacity: number
       color: string
     }> = []
-
-    const count = Math.min(50, Math.floor(window.innerWidth / 25))
-    const colors = ['#ffffff', '#c7d2fe', '#818cf8', '#a5b4fc', '#93c5fd']
-
-    for (let i = 0; i < count; i++) {
-      particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 1.8 + 0.6,
-        opacity: Math.random() * 0.35 + 0.1,
-        color: colors[Math.floor(Math.random() * colors.length)],
-      })
-    }
-
     let mouse = { x: -1000, y: -1000 }
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -95,10 +77,7 @@ export default function HeroSection() {
       height = canvas.height = window.innerHeight
     }
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true })
-    window.addEventListener('resize', handleResize)
-
-    const render = () => {
+    const render = (ctx: CanvasRenderingContext2D) => {
       ctx.clearRect(0, 0, width, height)
 
       particles.forEach((p, i) => {
@@ -145,12 +124,38 @@ export default function HeroSection() {
       })
 
       ctx.globalAlpha = 1
-      animationFrameId = requestAnimationFrame(render)
+      animationFrameId = requestAnimationFrame(() => render(ctx))
     }
 
-    render()
+    // Defer startup by 1.5s — keeps the main thread free during hydration
+    timeoutId = setTimeout(() => {
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return
+
+      width = canvas.width = window.innerWidth
+      height = canvas.height = window.innerHeight
+
+      const count = Math.min(40, Math.floor(window.innerWidth / 30))
+      const colors = ['#ffffff', '#c7d2fe', '#818cf8', '#a5b4fc', '#93c5fd']
+
+      particles = Array.from({ length: count }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 1.8 + 0.6,
+        opacity: Math.random() * 0.35 + 0.1,
+        color: colors[Math.floor(Math.random() * colors.length)],
+      }))
+
+      window.addEventListener('mousemove', handleMouseMove, { passive: true })
+      window.addEventListener('resize', handleResize)
+
+      render(ctx)
+    }, 1500)
 
     return () => {
+      clearTimeout(timeoutId)
       cancelAnimationFrame(animationFrameId)
       window.removeEventListener('mousemove', handleMouseMove)
       window.removeEventListener('resize', handleResize)
