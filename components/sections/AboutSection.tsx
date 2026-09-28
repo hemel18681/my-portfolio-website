@@ -141,7 +141,7 @@ export default function AboutSection() {
               {lanyardReady ? (
                 <Lanyard3D className="w-full h-[450px]" />
               ) : (
-                <div className="w-full h-[450px] rounded-3xl border border-white/10 bg-[#0b0d13] flex items-center justify-center text-slate-500 font-mono text-xs">
+                <div className="w-full h-[450px] rounded-3xl border border-white/10 bg-[#0b0d13] flex items-center justify-center text-slate-300 font-mono text-xs">
                   3D badge — scroll to load
                 </div>
               )}

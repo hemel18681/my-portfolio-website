@@ -41,8 +41,8 @@ export default function HeroSection() {
   const [glare, setGlare] = useState<{ x: number; y: number; opacity: number }>({ x: 50, y: 50, opacity: 0 })
 
   const profileImages = [
-    { src: '/assets/images/profile-1.webp', alt: `${profile.name} — Professional Portrait 1`, label: 'Portrait 1' },
-    { src: '/assets/images/profile-2.webp', alt: `${profile.name} — Professional Portrait 2`, label: 'Portrait 2' },
+    { src: '/assets/images/profile-1.webp', srcSet: '/assets/images/profile-1-420w.webp 420w, /assets/images/profile-1-840w.webp 840w', alt: `${profile.name} — Professional Portrait 1`, label: 'Portrait 1' },
+    { src: '/assets/images/profile-2.webp', srcSet: '/assets/images/profile-2-420w.webp 420w, /assets/images/profile-2-840w.webp 840w', alt: `${profile.name} — Professional Portrait 2`, label: 'Portrait 2' },
   ]
 
   // Particle Canvas Background

@@ -124,10 +124,10 @@ export default function ReviewsSection() {
                   setDirection(i > current ? 1 : -1)
                   setCurrent(i)
                 }}
-                className={`h-2 rounded-full transition-all cursor-pointer ${
+                className={`h-3 w-6 min-w-[24px] rounded-full transition-all cursor-pointer ${
                   i === current
-                    ? 'bg-indigo-500 w-8 shadow-[0_0_8px_rgba(99,102,241,0.6)]'
-                    : 'bg-indigo-950/80 w-2 hover:bg-indigo-800'
+                    ? 'bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.6)]'
+                    : 'bg-indigo-950/80 hover:bg-indigo-800'
                 }`}
                 aria-label={`Go to testimonial ${i + 1}`}
               />
