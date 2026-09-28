@@ -23,31 +23,31 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   const [isExiting, setIsExiting] = useState(false)
 
   useEffect(() => {
-    // Show boot lines sequentially
+    // Show boot lines sequentially — sped up for LCP
     bootLines.forEach((_, i) => {
       setTimeout(() => {
         setVisibleLines((prev) => [...prev, i])
-      }, i * 250)
+      }, i * 80)
     })
 
-    // Animate progress
+    // Animate progress — much faster
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval)
           return 100
         }
-        return prev + 2
+        return prev + 4
       })
-    }, 40)
+    }, 20)
 
     return () => clearInterval(interval)
   }, [])
 
   useEffect(() => {
     if (progress >= 100) {
-      setTimeout(() => setIsExiting(true), 400)
-      setTimeout(() => onComplete(), 1200)
+      setTimeout(() => setIsExiting(true), 100)
+      setTimeout(() => onComplete(), 600)
     }
   }, [progress, onComplete])
 
@@ -56,7 +56,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
       {!isExiting && (
         <motion.div
           className="fixed inset-0 z-[10000] bg-[#050505] flex items-center justify-center"
-          exit={{ y: '-100%', transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1] } }}
+          exit={{ y: '-100%', transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] } }}
         >
           <div className="w-full max-w-lg px-8">
             {/* Terminal output */}
