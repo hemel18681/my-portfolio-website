@@ -3,7 +3,6 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   output: 'standalone',
   devIndicators: false,
-  swcMinify: true,
   images: {
     qualities: [75, 85, 90, 100],
     remotePatterns: [
