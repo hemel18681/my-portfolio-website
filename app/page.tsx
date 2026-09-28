@@ -28,36 +28,51 @@ export default function Home() {
 
   return (
     <>
-      {/* Preloader */}
+      {/* Preloader - always sits on top until it finishes */}
       {!loaded && <Preloader onComplete={() => setLoaded(true)} />}
 
-      {/* Interactive Custom Mouse Cursor */}
-      <CustomCursor />
+      {/* Main App Content - rendered immediately behind the preloader so it can 
+          hydrate and calculate styles WITHOUT blocking the main thread in one massive spike */}
+      <div className={loaded ? '' : 'pointer-events-none'}>
+        {/* Interactive Custom Mouse Cursor */}
+        <CustomCursor />
 
-      {/* Top Navigation */}
-      <Navbar />
+        {/* Top Navigation */}
+        <Navbar />
 
-      {/* Main content - fluid, generous width for seamless immersive flow */}
-      <main className="w-full relative z-10 overflow-hidden">
-        <HeroSection />
-        <AboutSection />
-        <SkillsSection />
-        <ExperienceSection />
-        <ProjectsSection />
-        <AchievementsSection />
-        <AIToolsSection />
-        <ReviewsSection />
-        <ContactSection />
-      </main>
+        {/* Main content - fluid, generous width for seamless immersive flow */}
+        <main className="w-full relative z-10 overflow-hidden">
+          <HeroSection />
+          
+          {/* Below-the-fold sections are delayed until the preloader finishes 
+              to prevent massive main-thread blocking during initial hydration */}
+          {loaded && (
+            <>
+              <AboutSection />
+              <SkillsSection />
+              <ExperienceSection />
+              <ProjectsSection />
+              <AchievementsSection />
+              <AIToolsSection />
+              <ReviewsSection />
+              <ContactSection />
+            </>
+          )}
+        </main>
 
-      {/* Floating macOS Spring Dock (Visible when top navbar is hidden) */}
-      <Dock />
+        {loaded && (
+          <>
+            {/* Floating macOS Spring Dock */}
+            <Dock />
 
-      {/* Back To Top Action */}
-      <BackToTop />
+            {/* Back To Top Action */}
+            <BackToTop />
 
-      {/* Global Footer */}
-      <Footer />
+            {/* Global Footer */}
+            <Footer />
+          </>
+        )}
+      </div>
     </>
   )
 }
