@@ -6,14 +6,14 @@ import Preloader from '@/components/interactive/Preloader'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import HeroSection from '@/components/sections/HeroSection'
-import AboutSection from '@/components/sections/AboutSection'
-import SkillsSection from '@/components/sections/SkillsSection'
-import ExperienceSection from '@/components/sections/ExperienceSection'
-import ProjectsSection from '@/components/sections/ProjectsSection'
-import AchievementsSection from '@/components/sections/AchievementsSection'
-import AIToolsSection from '@/components/sections/AIToolsSection'
-import ReviewsSection from '@/components/sections/ReviewsSection'
-import ContactSection from '@/components/sections/ContactSection'
+const AboutSection = dynamic(() => import('@/components/sections/AboutSection'))
+const SkillsSection = dynamic(() => import('@/components/sections/SkillsSection'))
+const ExperienceSection = dynamic(() => import('@/components/sections/ExperienceSection'))
+const ProjectsSection = dynamic(() => import('@/components/sections/ProjectsSection'))
+const AchievementsSection = dynamic(() => import('@/components/sections/AchievementsSection'))
+const AIToolsSection = dynamic(() => import('@/components/sections/AIToolsSection'))
+const ReviewsSection = dynamic(() => import('@/components/sections/ReviewsSection'))
+const ContactSection = dynamic(() => import('@/components/sections/ContactSection'))
 import BackToTop from '@/components/ui/BackToTop'
 
 const CustomCursor = dynamic(() => import('@/components/interactive/CustomCursor'), { ssr: false })

@@ -7,10 +7,10 @@
 - **Title:** Senior Software Engineer & Architect
 - **Experience:** 5+ Years in Full-Stack Enterprise Engineering & Architecture
 - **Location:** Dhaka, Bangladesh (Available for Global Remote, Contract, and Full-time roles)
-- **Website:** https://hemel18681.netlify.app
-- **Email:** hemel18681@gmail.com
-- **GitHub:** https://github.com/hemel18681
-- **LinkedIn:** https://linkedin.com/in/hemel18681
+- **Website:** [https://hemel18681.netlify.app](https://hemel18681.netlify.app)
+- **Email:** [hemel18681@gmail.com](mailto:hemel18681@gmail.com)
+- **GitHub:** [https://github.com/hemel18681](https://github.com/hemel18681)
+- **LinkedIn:** [https://linkedin.com/in/hemel18681](https://linkedin.com/in/hemel18681)
 
 ## Core Technical Competencies
 - **Frontend:** React, Next.js (App Router, Turbopack, SSR/SSG), Angular (v2-v18, RxJS, NgRx), TypeScript, JavaScript (ES2022+), Tailwind CSS v4, HTML5/CSS3.
@@ -32,6 +32,6 @@
 - **B.Sc. in Computer Science & Engineering:** IUBAT (First Class Honors)
 
 ## Full Details & Documentation
-- Full Documentation: https://hemel18681.netlify.app/llms-full.txt
-- Sitemap: https://hemel18681.netlify.app/sitemap.xml
-- Contact: https://hemel18681.netlify.app/#contact
+- Full Documentation: [https://hemel18681.netlify.app/llms-full.txt](https://hemel18681.netlify.app/llms-full.txt)
+- Sitemap: [https://hemel18681.netlify.app/sitemap.xml](https://hemel18681.netlify.app/sitemap.xml)
+- Contact: [https://hemel18681.netlify.app/#contact](https://hemel18681.netlify.app/#contact)
