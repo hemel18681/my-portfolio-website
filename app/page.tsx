@@ -9,6 +9,7 @@ const Preloader = dynamic(() => import('@/components/interactive/Preloader'))
 const Navbar = dynamic(() => import('@/components/layout/Navbar'))
 const Footer = dynamic(() => import('@/components/layout/Footer'))
 const BackToTop = dynamic(() => import('@/components/ui/BackToTop'))
+import LazySection from '@/components/utils/LazySection'
 
 const HeroSection = dynamic(() => import('@/components/sections/HeroSection'))
 const AboutSection = dynamic(() => import('@/components/sections/AboutSection'))
@@ -44,34 +45,27 @@ export default function Home() {
         <main className="w-full relative z-10 overflow-hidden">
           <HeroSection />
           
-          {/* Below-the-fold sections are delayed until the preloader finishes 
-              to prevent massive main-thread blocking during initial hydration */}
-          {loaded && (
-            <>
-              <AboutSection />
-              <SkillsSection />
-              <ExperienceSection />
-              <ProjectsSection />
-              <AchievementsSection />
-              <AIToolsSection />
-              <ReviewsSection />
-              <ContactSection />
-            </>
-          )}
+          {/* Below-the-fold sections are strictly scroll-lazy-loaded using IntersectionObserver. 
+              This prevents the massive hydration spike (TBT) during initial load,
+              because their JS chunks aren't even fetched until the user scrolls near them. */}
+          <LazySection minHeight="80vh"><AboutSection /></LazySection>
+          <LazySection minHeight="80vh"><SkillsSection /></LazySection>
+          <LazySection minHeight="80vh"><ExperienceSection /></LazySection>
+          <LazySection minHeight="80vh"><ProjectsSection /></LazySection>
+          <LazySection minHeight="80vh"><AchievementsSection /></LazySection>
+          <LazySection minHeight="80vh"><AIToolsSection /></LazySection>
+          <LazySection minHeight="80vh"><ReviewsSection /></LazySection>
+          <LazySection minHeight="40vh"><ContactSection /></LazySection>
         </main>
 
-        {loaded && (
-          <>
-            {/* Floating macOS Spring Dock */}
-            <Dock />
+        {/* Floating macOS Spring Dock */}
+        <Dock />
 
-            {/* Back To Top Action */}
-            <BackToTop />
+        {/* Back To Top Action */}
+        <BackToTop />
 
-            {/* Global Footer */}
-            <Footer />
-          </>
-        )}
+        {/* Global Footer is also lazy-loaded as it's at the very bottom */}
+        <LazySection minHeight="20vh"><Footer /></LazySection>
       </div>
     </>
   )
