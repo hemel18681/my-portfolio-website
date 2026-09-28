@@ -20,14 +20,47 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  webpack: (config, { isServer }) => {
+  experimental: {
+    // Tree-shake large packages — only bundle the icons/components actually used
+    optimizePackageImports: [
+      'lucide-react',
+      'motion',
+      'motion/react',
+      'react-icons',
+    ],
+  },
+  webpack: (config, { isServer, dev }) => {
     if (!isServer) {
+      const emptyModule = path.resolve(__dirname, 'lib/empty-module.js')
+
       config.resolve.alias = {
         ...config.resolve.alias,
-        '../build/polyfills/polyfill-module': path.resolve(__dirname, 'lib/empty-module.js'),
-        '../build/polyfills/polyfill-nomodule': path.resolve(__dirname, 'lib/empty-module.js'),
-        '@next/polyfill-module': path.resolve(__dirname, 'lib/empty-module.js'),
-        '@next/polyfill-nomodule': path.resolve(__dirname, 'lib/empty-module.js'),
+        // Strip polyfills (already handled by browserslist)
+        '../build/polyfills/polyfill-module': emptyModule,
+        '../build/polyfills/polyfill-nomodule': emptyModule,
+        '@next/polyfill-module': emptyModule,
+        '@next/polyfill-nomodule': emptyModule,
+      }
+
+      // In production builds, stub out the Next.js dev overlay/devtools.
+      // Next.js 15.x bundles these even when devIndicators: false, adding ~198 KiB.
+      if (!dev) {
+        const devtoolsAliases: Record<string, string> = {
+          'next/dist/next-devtools/userspace/app/app-dev-overlay-setup': emptyModule,
+          'next/dist/next-devtools/userspace/app/app-dev-overlay-error-boundary': emptyModule,
+          'next/dist/next-devtools/userspace/app/client-entry': emptyModule,
+          'next/dist/next-devtools/userspace/pages/pages-dev-overlay-setup': emptyModule,
+          'next/dist/next-devtools/userspace/pages/pages-dev-overlay-error-boundary': emptyModule,
+          'next/dist/esm/next-devtools/userspace/app/app-dev-overlay-setup': emptyModule,
+          'next/dist/esm/next-devtools/userspace/app/app-dev-overlay-error-boundary': emptyModule,
+          'next/dist/esm/next-devtools/userspace/app/client-entry': emptyModule,
+          'next/dist/esm/next-devtools/userspace/pages/pages-dev-overlay-setup': emptyModule,
+          'next/dist/esm/next-devtools/userspace/pages/pages-dev-overlay-error-boundary': emptyModule,
+        }
+        config.resolve.alias = {
+          ...config.resolve.alias,
+          ...devtoolsAliases,
+        }
       }
     }
     return config
