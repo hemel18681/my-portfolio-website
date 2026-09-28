@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import Image from 'next/image'
 import { profile, conferences, education } from '@/lib/data'
@@ -9,8 +9,25 @@ import { playClick } from '@/hooks/useSound'
 
 const Lanyard3D = dynamic(() => import('@/components/3d/Lanyard3D'), { ssr: false })
 
+function useInView(threshold = 0.2) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold })
+    obs.observe(el)
+    return () => obs.disconnect()
+  }, [threshold])
+  return [visible, ref] as const
+}
+
 export default function AboutSection() {
   const [viewMode, setViewMode] = useState<'3d' | 'photo'>('3d')
+  const [lanyardReady, setLanyardReady] = useState(false)
+  const [inView, sectionRef] = useInView(0.25)
+
+  useEffect(() => { if (inView) setLanyardReady(true); }, [inView])
 
   const handleModeChange = (mode: '3d' | 'photo') => {
     playClick()
@@ -22,7 +39,7 @@ export default function AboutSection() {
       id="about"
       className="py-24 md:py-32 max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 relative"
     >
-      <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-14 relative z-10">
+      <div ref={sectionRef} className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-14 relative z-10">
         {/* Left Column — Bio & Highlights */}
         <div className="basis-full md:basis-7/12 pr-0 md:pr-8 border-b md:border-b-0 md:border-r border-white/10 pb-8 md:pb-0">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#10131d] border border-indigo-500/20 text-xs font-mono uppercase tracking-widest text-indigo-300 mb-5">
@@ -121,7 +138,13 @@ export default function AboutSection() {
 
           {viewMode === '3d' ? (
             <div className="w-full flex flex-col items-center">
-              <Lanyard3D className="w-full h-[450px]" />
+              {lanyardReady ? (
+                <Lanyard3D className="w-full h-[450px]" />
+              ) : (
+                <div className="w-full h-[450px] rounded-3xl border border-white/10 bg-[#0b0d13] flex items-center justify-center text-slate-500 font-mono text-xs">
+                  3D badge — scroll to load
+                </div>
+              )}
               <p className="text-xs font-mono text-indigo-300 text-center mt-2 flex items-center gap-1.5">
                 <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
                 <span>Interactive 3D Rapier Physics • Click &amp; drag to swing</span>
@@ -130,7 +153,7 @@ export default function AboutSection() {
           ) : (
             <div className="w-full max-w-[320px] aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 relative shadow-2xl group bg-[#0b0d13]">
               <Image
-                src="/assets/images/profile-2.png"
+                src="/assets/images/profile-2.webp"
                 alt={`${profile.name} — Portrait`}
                 fill
                 unoptimized

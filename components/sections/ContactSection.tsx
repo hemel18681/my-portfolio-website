@@ -154,7 +154,7 @@ export default function ContactSection() {
 
             {/* Social Links */}
             <div className="pt-2">
-              <div className="text-[10px] font-mono uppercase tracking-widest text-indigo-400/80 mb-3">
+              <div className="text-[10px] font-mono uppercase tracking-widest text-indigo-300 mb-3">
                 Connect Across Platforms
               </div>
               <div className="flex gap-3">

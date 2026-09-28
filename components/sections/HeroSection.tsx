@@ -41,8 +41,8 @@ export default function HeroSection() {
   const [glare, setGlare] = useState<{ x: number; y: number; opacity: number }>({ x: 50, y: 50, opacity: 0 })
 
   const profileImages = [
-    { src: '/assets/images/profile-1.png', alt: `${profile.name} — Professional Portrait 1`, label: 'Portrait 1' },
-    { src: '/assets/images/profile-2.png', alt: `${profile.name} — Professional Portrait 2`, label: 'Portrait 2' },
+    { src: '/assets/images/profile-1.webp', alt: `${profile.name} — Professional Portrait 1`, label: 'Portrait 1' },
+    { src: '/assets/images/profile-2.webp', alt: `${profile.name} — Professional Portrait 2`, label: 'Portrait 2' },
   ]
 
   // Particle Canvas Background
@@ -352,7 +352,7 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.6 }}
               className="flex items-center gap-3"
             >
-              <span className="text-[10px] font-mono text-indigo-400/80 mr-2 uppercase tracking-widest">// SOCIAL</span>
+              <span className="text-[10px] font-mono text-indigo-300 mr-2 uppercase tracking-widest">// SOCIAL</span>
               {socialLinks.map((link) => (
                 <a
                   key={link.name}
@@ -420,10 +420,10 @@ export default function HeroSection() {
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeImageIndex}
-                      initial={{ opacity: 0, scale: 1.02 }}
+                      initial={{ opacity: activeImageIndex === 0 ? 1 : 0, scale: 1 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.98 }}
-                      transition={{ duration: 0.35, ease: 'easeInOut' }}
+                      transition={{ duration: activeImageIndex === 0 ? 0 : 0.35, ease: 'easeInOut' }}
                       className="relative w-full h-full"
                     >
                       <Image
