@@ -1,0 +1,37 @@
+# Asif Uddin Ahmed Hemel — Senior Software Engineer & Architect
+
+> Senior Software Engineer & Architect with 5+ years of experience building high-throughput enterprise systems, scalable cloud infrastructure, and mission-critical web applications. Specialized in React, Next.js, Angular, Node.js, .NET Core, AWS, and Microservices architecture.
+
+## Overview
+- **Name:** Asif Uddin Ahmed Hemel (Asif Hemel)
+- **Title:** Senior Software Engineer & Architect
+- **Experience:** 5+ Years in Full-Stack Enterprise Engineering & Architecture
+- **Location:** Dhaka, Bangladesh (Available for Global Remote, Contract, and Full-time roles)
+- **Website:** https://hemel18681.netlify.app
+- **Email:** hemel18681@gmail.com
+- **GitHub:** https://github.com/hemel18681
+- **LinkedIn:** https://linkedin.com/in/hemel18681
+
+## Core Technical Competencies
+- **Frontend:** React, Next.js (App Router, Turbopack, SSR/SSG), Angular (v2-v18, RxJS, NgRx), TypeScript, JavaScript (ES2022+), Tailwind CSS v4, HTML5/CSS3.
+- **Backend & APIs:** .NET Core, ASP.NET Core, C#, Node.js, Express, NestJS, RESTful APIs, GraphQL, Microservices, Event-Driven Architecture.
+- **Databases & Caching:** PostgreSQL, Microsoft SQL Server, MySQL, MongoDB, Redis, Entity Framework Core, Prisma.
+- **Cloud & DevOps:** AWS (S3, CloudFront, Lambda, ECS, RDS, Route53), Docker, Kubernetes, CI/CD (GitHub Actions, GitLab CI), Nginx, Linux.
+- **Architecture & Practices:** Clean Architecture, Domain-Driven Design (DDD), SOLID principles, Test-Driven Development (TDD), High Concurrency, Zero-Downtime Migration.
+
+## Key Featured Projects
+- **Enterprise Core Banking System:** Led full-stack architecture and frontend migration across 300+ banking branches; reduced transaction latency by 45% and improved concurrent processing by 200%.
+- **Expense Tracker Mobile:** Local-first personal finance platform built with Expo, React Native, and TypeScript. Multi-currency, investment management, and zero-latency local SQLite persistence.
+- **Enterprise Asset & File Management:** High-security document streaming, encrypted storage, and granular RBAC built with .NET Core, PostgreSQL, and Angular.
+- **AI-Powered Hostility Detection:** Deep learning NLP model and real-time moderation pipeline using Python, PyTorch, and Next.js.
+
+## Competitive Programming & Academic Achievements
+- **ICPC Dhaka Regional 2020:** Honorable Mention
+- **NCPC 2020:** Honorable Mention
+- **Champion:** IUBAT Intra-University Programming Contest 2021
+- **B.Sc. in Computer Science & Engineering:** IUBAT (First Class Honors)
+
+## Full Details & Documentation
+- Full Documentation: https://hemel18681.netlify.app/llms-full.txt
+- Sitemap: https://hemel18681.netlify.app/sitemap.xml
+- Contact: https://hemel18681.netlify.app/#contact

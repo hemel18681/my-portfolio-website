@@ -48,7 +48,7 @@ export default function CustomCursor() {
       document.documentElement.style.removeProperty('cursor')
       cancelAnimationFrame(rafId)
     }
-  }, [isVisible])
+  }, [])
 
   return (
     <>

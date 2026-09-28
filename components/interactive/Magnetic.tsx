@@ -17,22 +17,35 @@ export default function Magnetic({
   springConfig = { stiffness: 150, damping: 15, mass: 0.1 },
 }: MagneticProps) {
   const ref = useRef<HTMLDivElement>(null)
+  const rectRef = useRef<{ left: number; top: number; width: number; height: number } | null>(null)
   const x = useMotionValue(0)
   const y = useMotionValue(0)
 
   const springX = useSpring(x, springConfig)
   const springY = useSpring(y, springConfig)
 
+  const handleMouseEnter = () => {
+    if (ref.current) {
+      const rect = ref.current.getBoundingClientRect()
+      rectRef.current = { left: rect.left, top: rect.top, width: rect.width, height: rect.height }
+    }
+  }
+
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return
-    const rect = ref.current.getBoundingClientRect()
-    const centerX = rect.left + rect.width / 2
-    const centerY = rect.top + rect.height / 2
+    if (!rectRef.current) {
+      if (!ref.current) return
+      const rect = ref.current.getBoundingClientRect()
+      rectRef.current = { left: rect.left, top: rect.top, width: rect.width, height: rect.height }
+    }
+    const { left, top, width, height } = rectRef.current
+    const centerX = left + width / 2
+    const centerY = top + height / 2
     x.set((e.clientX - centerX) * strength)
     y.set((e.clientY - centerY) * strength)
   }
 
   const handleMouseLeave = () => {
+    rectRef.current = null
     x.set(0)
     y.set(0)
   }
@@ -42,6 +55,7 @@ export default function Magnetic({
       ref={ref}
       className={className}
       style={{ x: springX, y: springY }}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >

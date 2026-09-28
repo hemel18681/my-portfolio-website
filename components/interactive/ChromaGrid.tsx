@@ -28,22 +28,20 @@ interface ChromaGridProps {
 export default function ChromaGrid({ items, className = '', columns = 3 }: ChromaGridProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [hoveredId, setHoveredId] = useState<string | null>(null)
+  const rafId = useRef<number>(0)
 
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return
-    const rect = containerRef.current.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    const cards = containerRef.current.querySelectorAll('[data-card]')
-    cards.forEach((card) => {
-      const cardRect = card.getBoundingClientRect()
-      const cardX = cardRect.left - rect.left + cardRect.width / 2
-      const cardY = cardRect.top - rect.top + cardRect.height / 2
-      const dist = Math.sqrt((x - cardX) ** 2 + (y - cardY) ** 2)
-      const el = card as HTMLElement
-      el.style.setProperty('--mx', `${x}px`)
-      el.style.setProperty('--my', `${y}px`)
-      el.style.setProperty('--d', `${Math.min(dist / 300, 1)}`)
+  const handleCardMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    const card = e.currentTarget
+    if (rafId.current) return
+    const clientX = e.clientX
+    const clientY = e.clientY
+    rafId.current = requestAnimationFrame(() => {
+      const rect = card.getBoundingClientRect()
+      const x = clientX - rect.left
+      const y = clientY - rect.top
+      card.style.setProperty('--mx', `${x}px`)
+      card.style.setProperty('--my', `${y}px`)
+      rafId.current = 0
     })
   }
 
@@ -57,7 +55,6 @@ export default function ChromaGrid({ items, className = '', columns = 3 }: Chrom
     <div
       ref={containerRef}
       className={cn('grid gap-5', gridCols[columns], className)}
-      onMouseMove={handleMouseMove}
     >
       {items.map((item) => (
         <motion.div
@@ -67,8 +64,8 @@ export default function ChromaGrid({ items, className = '', columns = 3 }: Chrom
           style={{
             '--mx': '50%',
             '--my': '50%',
-            '--d': '1',
           } as React.CSSProperties}
+          onMouseMove={handleCardMouseMove}
           onMouseEnter={() => {
             setHoveredId(item.id)
             playHover()
