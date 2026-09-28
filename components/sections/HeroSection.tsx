@@ -157,20 +157,25 @@ export default function HeroSection() {
     }
   }, [])
 
-  // 3D Parallax Tilt for Avatar Card
+  // 3D Parallax Tilt for Avatar Card — batched via RAF to avoid forced reflow
+  const rafId = useRef<number>(0)
+  const rectCache = useRef({ left: 0, top: 0, width: 0, height: 0 })
+
   const handleCardMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const card = avatarCardRef.current
-    if (!card) return
-
-    const rect = card.getBoundingClientRect()
-    const x = (e.clientX - rect.left) / rect.width
-    const y = (e.clientY - rect.top) / rect.height
-
-    const tiltX = (y - 0.5) * -14
-    const tiltY = (x - 0.5) * 14
-
-    setTilt({ x: tiltX, y: tiltY })
-    setGlare({ x: x * 100, y: y * 100, opacity: 0.25 })
+    if (rafId.current) return
+    rafId.current = requestAnimationFrame(() => {
+      const card = avatarCardRef.current
+      if (!card) { rafId.current = 0; return }
+      const rect = card.getBoundingClientRect()
+      rectCache.current = { left: rect.left, top: rect.top, width: rect.width, height: rect.height }
+      const x = (e.clientX - rect.left) / rect.width
+      const y = (e.clientY - rect.top) / rect.height
+      const tiltX = (y - 0.5) * -14
+      const tiltY = (x - 0.5) * 14
+      setTilt({ x: tiltX, y: tiltY })
+      setGlare({ x: x * 100, y: y * 100, opacity: 0.25 })
+      rafId.current = 0
+    })
   }
 
   const handleCardMouseLeave = () => {
@@ -430,9 +435,8 @@ export default function HeroSection() {
                         src={profileImages[activeImageIndex].src}
                         alt={profileImages[activeImageIndex].alt}
                         fill
-                        unoptimized
                         priority
-                        quality={85}
+                        quality={80}
                         fetchPriority="high"
                         className="object-cover object-[center_12%]"
                         sizes="(max-width: 640px) 340px, (max-width: 1024px) 400px, 420px"
