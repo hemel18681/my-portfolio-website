@@ -55,6 +55,7 @@ export default function HeroSection() {
     let timeoutId: ReturnType<typeof setTimeout>
     let width = 0
     let height = 0
+    let isRunning = false
     let particles: Array<{
       x: number
       y: number
@@ -127,11 +128,23 @@ export default function HeroSection() {
       animationFrameId = requestAnimationFrame(() => render(ctx))
     }
 
-    // Defer startup by 1.5s — keeps the main thread free during hydration
-    timeoutId = setTimeout(() => {
+    const stopCanvas = () => {
+      if (!isRunning) return
+      isRunning = false
+      cancelAnimationFrame(animationFrameId)
+      window.removeEventListener('mousemove', handleMouseMove)
+      window.removeEventListener('resize', handleResize)
+      
+      const ctx = canvas.getContext('2d')
+      if (ctx) ctx.clearRect(0, 0, width, height)
+    }
+
+    const startCanvas = () => {
+      if (isRunning || !canvas) return
       const ctx = canvas.getContext('2d')
       if (!ctx) return
-
+      
+      isRunning = true
       width = canvas.width = window.innerWidth
       height = canvas.height = window.innerHeight
 
@@ -150,15 +163,30 @@ export default function HeroSection() {
 
       window.addEventListener('mousemove', handleMouseMove, { passive: true })
       window.addEventListener('resize', handleResize)
-
+      
       render(ctx)
+    }
+
+    const mql = window.matchMedia('(min-width: 768px)')
+    
+    const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
+      if (e.matches) {
+        startCanvas()
+      } else {
+        stopCanvas()
+      }
+    }
+
+    // Defer startup by 1.5s — keeps the main thread free during hydration
+    timeoutId = setTimeout(() => {
+      handleMediaChange(mql)
+      mql.addEventListener('change', handleMediaChange)
     }, 1500)
 
     return () => {
       clearTimeout(timeoutId)
-      cancelAnimationFrame(animationFrameId)
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('resize', handleResize)
+      stopCanvas()
+      mql.removeEventListener('change', handleMediaChange)
     }
   }, [])
 
