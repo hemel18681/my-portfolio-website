@@ -2,9 +2,14 @@
 
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
+
+// All components are dynamically imported to minimise the initial JS payload
+// and eliminate main-thread blocking on first paint.
 const Preloader = dynamic(() => import('@/components/interactive/Preloader'))
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
+const Navbar = dynamic(() => import('@/components/layout/Navbar'))
+const Footer = dynamic(() => import('@/components/layout/Footer'))
+const BackToTop = dynamic(() => import('@/components/ui/BackToTop'))
+
 const HeroSection = dynamic(() => import('@/components/sections/HeroSection'))
 const AboutSection = dynamic(() => import('@/components/sections/AboutSection'))
 const SkillsSection = dynamic(() => import('@/components/sections/SkillsSection'))
@@ -14,7 +19,6 @@ const AchievementsSection = dynamic(() => import('@/components/sections/Achievem
 const AIToolsSection = dynamic(() => import('@/components/sections/AIToolsSection'))
 const ReviewsSection = dynamic(() => import('@/components/sections/ReviewsSection'))
 const ContactSection = dynamic(() => import('@/components/sections/ContactSection'))
-import BackToTop from '@/components/ui/BackToTop'
 
 const CustomCursor = dynamic(() => import('@/components/interactive/CustomCursor'), { ssr: false })
 const Dock = dynamic(() => import('@/components/interactive/Dock'), { ssr: false })
