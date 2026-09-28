@@ -161,13 +161,19 @@ export default function HeroSection() {
   const rafId = useRef<number>(0)
   const rectCache = useRef({ left: 0, top: 0, width: 0, height: 0 })
 
+  const handleCardMouseEnter = () => {
+    const card = avatarCardRef.current
+    if (card) {
+      const rect = card.getBoundingClientRect()
+      rectCache.current = { left: rect.left, top: rect.top, width: rect.width, height: rect.height }
+    }
+  }
+
   const handleCardMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (rafId.current) return
     rafId.current = requestAnimationFrame(() => {
-      const card = avatarCardRef.current
-      if (!card) { rafId.current = 0; return }
-      const rect = card.getBoundingClientRect()
-      rectCache.current = { left: rect.left, top: rect.top, width: rect.width, height: rect.height }
+      const rect = rectCache.current
+      if (rect.width === 0) { rafId.current = 0; return }
       const x = (e.clientX - rect.left) / rect.width
       const y = (e.clientY - rect.top) / rect.height
       const tiltX = (y - 0.5) * -14
@@ -404,6 +410,7 @@ export default function HeroSection() {
             {/* Interactive 3D Tilt Card Frame — Expanded & Uncropped */}
             <div
               ref={avatarCardRef}
+              onMouseEnter={handleCardMouseEnter}
               onMouseMove={handleCardMouseMove}
               onMouseLeave={handleCardMouseLeave}
               className="relative w-[340px] sm:w-[400px] lg:w-[420px] h-[500px] sm:h-[560px] lg:h-[580px] rounded-3xl cursor-pointer select-none group z-10"

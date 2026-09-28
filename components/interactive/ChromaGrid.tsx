@@ -29,6 +29,7 @@ export default function ChromaGrid({ items, className = '', columns = 3 }: Chrom
   const containerRef = useRef<HTMLDivElement>(null)
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const rafId = useRef<number>(0)
+  const rectCache = useRef<{ left: number; top: number }>({ left: 0, top: 0 })
 
   const handleCardMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     const card = e.currentTarget
@@ -36,9 +37,8 @@ export default function ChromaGrid({ items, className = '', columns = 3 }: Chrom
     const clientX = e.clientX
     const clientY = e.clientY
     rafId.current = requestAnimationFrame(() => {
-      const rect = card.getBoundingClientRect()
-      const x = clientX - rect.left
-      const y = clientY - rect.top
+      const x = clientX - rectCache.current.left
+      const y = clientY - rectCache.current.top
       card.style.setProperty('--mx', `${x}px`)
       card.style.setProperty('--my', `${y}px`)
       rafId.current = 0
@@ -66,7 +66,9 @@ export default function ChromaGrid({ items, className = '', columns = 3 }: Chrom
             '--my': '50%',
           } as React.CSSProperties}
           onMouseMove={handleCardMouseMove}
-          onMouseEnter={() => {
+          onMouseEnter={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect()
+            rectCache.current = { left: rect.left, top: rect.top }
             setHoveredId(item.id)
             playHover()
           }}

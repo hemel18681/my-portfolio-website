@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
-import Preloader from '@/components/interactive/Preloader'
+const Preloader = dynamic(() => import('@/components/interactive/Preloader'))
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
-import HeroSection from '@/components/sections/HeroSection'
+const HeroSection = dynamic(() => import('@/components/sections/HeroSection'))
 const AboutSection = dynamic(() => import('@/components/sections/AboutSection'))
 const SkillsSection = dynamic(() => import('@/components/sections/SkillsSection'))
 const ExperienceSection = dynamic(() => import('@/components/sections/ExperienceSection'))

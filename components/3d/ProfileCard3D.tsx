@@ -13,11 +13,18 @@ export default function ProfileCard3D() {
   const cardRef = useRef<HTMLDivElement>(null)
   const [rotate, setRotate] = useState({ x: 0, y: 0 })
   const [glare, setGlare] = useState({ x: 50, y: 50, opacity: 0 })
+  const rectCache = useRef({ left: 0, top: 0, width: 0, height: 0 })
+
+  const handleMouseEnter = () => {
+    if (cardRef.current) {
+      const rect = cardRef.current.getBoundingClientRect()
+      rectCache.current = { left: rect.left, top: rect.top, width: rect.width, height: rect.height }
+    }
+  }
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    const card = cardRef.current
-    if (!card) return
-    const rect = card.getBoundingClientRect()
+    const rect = rectCache.current
+    if (rect.width === 0) return
     const x = (e.clientX - rect.left) / rect.width
     const y = (e.clientY - rect.top) / rect.height
     const tiltX = (y - 0.5) * -16
@@ -36,6 +43,7 @@ export default function ProfileCard3D() {
       ref={cardRef}
       className="relative w-64 h-80 sm:w-72 sm:h-96 cursor-pointer select-none"
       style={{ perspective: 800 }}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       whileHover={{ scale: 1.03 }}
