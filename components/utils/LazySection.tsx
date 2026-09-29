@@ -5,9 +5,10 @@ import { useState, useEffect, useRef } from 'react'
 interface LazySectionProps {
   children: React.ReactNode
   minHeight?: string
+  id?: string
 }
 
-export default function LazySection({ children, minHeight = '50vh' }: LazySectionProps) {
+export default function LazySection({ children, minHeight = '50vh', id }: LazySectionProps) {
   const [hasIntersected, setHasIntersected] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -37,5 +38,5 @@ export default function LazySection({ children, minHeight = '50vh' }: LazySectio
   }
 
   // Placeholder while loading, maintains layout structure to prevent CLS
-  return <div ref={ref} style={{ minHeight, width: '100%' }} aria-hidden="true" />
+  return <div ref={ref} id={id} style={{ minHeight, width: '100%' }} aria-hidden="true" />
 }

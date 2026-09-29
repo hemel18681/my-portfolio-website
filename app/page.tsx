@@ -37,18 +37,18 @@ export default function Home() {
         {/* Main content - fluid, generous width for seamless immersive flow */}
         <main className="w-full relative z-10 overflow-hidden">
           <HeroSection />
-          
+
           {/* Below-the-fold sections are strictly scroll-lazy-loaded using IntersectionObserver. 
               This prevents the massive hydration spike (TBT) during initial load,
               because their JS chunks aren't even fetched until the user scrolls near them. */}
-          <LazySection minHeight="80vh"><AboutSection /></LazySection>
-          <LazySection minHeight="80vh"><SkillsSection /></LazySection>
-          <LazySection minHeight="80vh"><ExperienceSection /></LazySection>
-          <LazySection minHeight="80vh"><ProjectsSection /></LazySection>
-          <LazySection minHeight="80vh"><AchievementsSection /></LazySection>
-          <LazySection minHeight="80vh"><AIToolsSection /></LazySection>
-          <LazySection minHeight="80vh"><ReviewsSection /></LazySection>
-          <LazySection minHeight="40vh"><ContactSection /></LazySection>
+          <LazySection id="about" minHeight="80vh"><AboutSection /></LazySection>
+          <LazySection id="skills" minHeight="80vh"><SkillsSection /></LazySection>
+          <LazySection id="experience" minHeight="80vh"><ExperienceSection /></LazySection>
+          <LazySection id="projects" minHeight="80vh"><ProjectsSection /></LazySection>
+          <LazySection id="achievements" minHeight="80vh"><AchievementsSection /></LazySection>
+          <LazySection id="ai-tools" minHeight="80vh"><AIToolsSection /></LazySection>
+          <LazySection id="reviews" minHeight="80vh"><ReviewsSection /></LazySection>
+          <LazySection id="contact" minHeight="40vh"><ContactSection /></LazySection>
         </main>
 
         {/* Floating macOS Spring Dock */}
