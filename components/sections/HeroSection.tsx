@@ -34,7 +34,6 @@ const TECH_BADGES = [
 ]
 
 export default function HeroSection() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
   const avatarCardRef = useRef<HTMLDivElement>(null)
   const [activeImageIndex, setActiveImageIndex] = useState<number>(0)
   const [tilt, setTilt] = useState<{ x: number; y: number }>({ x: 0, y: 0 })
@@ -44,151 +43,6 @@ export default function HeroSection() {
     { src: '/assets/images/profile-1.webp', srcSet: '/assets/images/profile-1-420w.webp 420w, /assets/images/profile-1-840w.webp 840w', alt: `${profile.name} — Professional Portrait 1`, label: 'Portrait 1' },
     { src: '/assets/images/profile-2.webp', srcSet: '/assets/images/profile-2-420w.webp 420w, /assets/images/profile-2-840w.webp 840w', alt: `${profile.name} — Professional Portrait 2`, label: 'Portrait 2' },
   ]
-
-  // Particle Canvas Background — deferred 1.5s after mount so it doesn't
-  // compete with React hydration and initial paint (reduces TBT on Lighthouse).
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    let animationFrameId: number
-    let timeoutId: ReturnType<typeof setTimeout>
-    let width = 0
-    let height = 0
-    let isRunning = false
-    let particles: Array<{
-      x: number
-      y: number
-      vx: number
-      vy: number
-      size: number
-      opacity: number
-      color: string
-    }> = []
-    let mouse = { x: -1000, y: -1000 }
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouse.x = e.clientX
-      mouse.y = e.clientY
-    }
-
-    const handleResize = () => {
-      if (!canvas) return
-      width = canvas.width = window.innerWidth
-      height = canvas.height = window.innerHeight
-    }
-
-    const render = (ctx: CanvasRenderingContext2D) => {
-      ctx.clearRect(0, 0, width, height)
-
-      particles.forEach((p, i) => {
-        p.x += p.vx
-        p.y += p.vy
-
-        if (p.x < 0) p.x = width
-        if (p.x > width) p.x = 0
-        if (p.y < 0) p.y = height
-        if (p.y > height) p.y = 0
-
-        const dx = mouse.x - p.x
-        const dy = mouse.y - p.y
-        const distSq = dx * dx + dy * dy
-        if (distSq < 12000) {
-          const dist = Math.sqrt(distSq)
-          const force = (110 - dist) / 110
-          p.x -= dx * force * 0.015
-          p.y -= dy * force * 0.015
-        }
-
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2)
-        ctx.fillStyle = p.color
-        ctx.globalAlpha = p.opacity
-        ctx.fill()
-
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j]
-          const ldx = p.x - p2.x
-          const ldy = p.y - p2.y
-          const ldistSq = ldx * ldx + ldy * ldy
-
-          if (ldistSq < 8000) {
-            ctx.beginPath()
-            ctx.moveTo(p.x, p.y)
-            ctx.lineTo(p2.x, p2.y)
-            ctx.strokeStyle = '#818cf8'
-            ctx.globalAlpha = (1 - Math.sqrt(ldistSq) / 90) * 0.05
-            ctx.lineWidth = 0.5
-            ctx.stroke()
-          }
-        }
-      })
-
-      ctx.globalAlpha = 1
-      animationFrameId = requestAnimationFrame(() => render(ctx))
-    }
-
-    const stopCanvas = () => {
-      if (!isRunning) return
-      isRunning = false
-      cancelAnimationFrame(animationFrameId)
-      window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('resize', handleResize)
-      
-      const ctx = canvas.getContext('2d')
-      if (ctx) ctx.clearRect(0, 0, width, height)
-    }
-
-    const startCanvas = () => {
-      return; // Disabled to improve PageSpeed score
-      const ctx = canvas.getContext('2d')
-      if (!ctx) return
-      
-      isRunning = true
-      width = canvas.width = window.innerWidth
-      height = canvas.height = window.innerHeight
-
-      const count = Math.min(40, Math.floor(window.innerWidth / 30))
-      const colors = ['#ffffff', '#c7d2fe', '#818cf8', '#a5b4fc', '#93c5fd']
-
-      particles = Array.from({ length: count }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        size: Math.random() * 1.8 + 0.6,
-        opacity: Math.random() * 0.35 + 0.1,
-        color: colors[Math.floor(Math.random() * colors.length)],
-      }))
-
-      window.addEventListener('mousemove', handleMouseMove, { passive: true })
-      window.addEventListener('resize', handleResize)
-      
-      render(ctx)
-    }
-
-    const mql = window.matchMedia('(min-width: 768px)')
-    
-    const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
-      if (e.matches) {
-        // startCanvas()
-      } else {
-        stopCanvas()
-      }
-    }
-
-    // Defer startup by 1.5s — keeps the main thread free during hydration
-    timeoutId = setTimeout(() => {
-      handleMediaChange(mql)
-      mql.addEventListener('change', handleMediaChange)
-    }, 1500)
-
-    return () => {
-      clearTimeout(timeoutId)
-      stopCanvas()
-      mql.removeEventListener('change', handleMediaChange)
-    }
-  }, [])
 
   // 3D Parallax Tilt for Avatar Card — batched via RAF to avoid forced reflow
   const rafId = useRef<number>(0)
@@ -234,11 +88,6 @@ export default function HeroSection() {
 
   return (
     <section id="hero" className="relative min-h-[92vh] flex flex-col justify-center pt-24 pb-16 overflow-hidden">
-      {/* Background Interactive Particle Canvas */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 pointer-events-none z-0 opacity-45"
-      />
 
       {/* Subtle Obsidian Ambient Glows */}
       <div className="absolute top-1/4 -left-32 w-96 h-96 bg-indigo-600/10 rounded-full blur-[140px] pointer-events-none" />
