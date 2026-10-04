@@ -3,6 +3,8 @@ import path from 'path'
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  outputFileTracingRoot: path.join(__dirname, './'),
+  distDir: process.env.NEXT_DIST_DIR || '.next',
   devIndicators: false,
   images: {
     formats: ['image/avif', 'image/webp'],

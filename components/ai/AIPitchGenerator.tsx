@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { generateContentStream, isGeminiConfigured } from '@/lib/gemini'
+import { profile } from '@/lib/data'
 import { Sparkles, Loader2, Send } from 'lucide-react'
 import OutputBox from './OutputBox'
 import { playClick } from '@/hooks/useSound'
@@ -23,7 +24,7 @@ Job Description:
 ${input}
 
 Key Skills: React, Angular, Next.js, Node.js, .NET, AWS, Docker, PostgreSQL, TypeScript
-Experience: 4.5+ years, Senior Software Engineer at Enosis Solutions
+Experience: ${profile.yearsOfExperience}+ years, Senior Software Engineer at Enosis Solutions
 Achievements: +200% banking speed improvement, 300+ branches deployed, +70% query response improvement
 Research: FCV 2022 Japan paper on Human Hostility Detection via Deep Learning
 

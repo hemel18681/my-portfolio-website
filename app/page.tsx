@@ -1,6 +1,3 @@
-'use client'
-
-import { useState } from 'react'
 import dynamic from 'next/dynamic'
 
 // All components are dynamically imported to minimise the initial JS payload
@@ -9,8 +6,9 @@ const Navbar = dynamic(() => import('@/components/layout/Navbar'))
 const Footer = dynamic(() => import('@/components/layout/Footer'))
 const BackToTop = dynamic(() => import('@/components/ui/BackToTop'))
 import LazySection from '@/components/utils/LazySection'
+import HireSection from '@/components/sections/HireSection'
 
-const HeroSection = dynamic(() => import('@/components/sections/HeroSection'))
+import HeroSection from '@/components/sections/HeroSection'
 const AboutSection = dynamic(() => import('@/components/sections/AboutSection'))
 const SkillsSection = dynamic(() => import('@/components/sections/SkillsSection'))
 const ExperienceSection = dynamic(() => import('@/components/sections/ExperienceSection'))
@@ -20,8 +18,8 @@ const AIToolsSection = dynamic(() => import('@/components/sections/AIToolsSectio
 const ReviewsSection = dynamic(() => import('@/components/sections/ReviewsSection'))
 const ContactSection = dynamic(() => import('@/components/sections/ContactSection'))
 
-const CustomCursor = dynamic(() => import('@/components/interactive/CustomCursor'), { ssr: false })
-const Dock = dynamic(() => import('@/components/interactive/Dock'), { ssr: false })
+const CustomCursor = dynamic(() => import('@/components/interactive/CustomCursor'))
+const Dock = dynamic(() => import('@/components/interactive/Dock'))
 
 export default function Home() {
   return (
@@ -48,6 +46,7 @@ export default function Home() {
           <LazySection id="achievements" minHeight="80vh"><AchievementsSection /></LazySection>
           <LazySection id="ai-tools" minHeight="80vh"><AIToolsSection /></LazySection>
           <LazySection id="reviews" minHeight="80vh"><ReviewsSection /></LazySection>
+          <HireSection />
           <LazySection id="contact" minHeight="40vh"><ContactSection /></LazySection>
         </main>
 

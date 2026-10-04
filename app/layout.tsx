@@ -295,19 +295,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="%23818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>'
         />
         <meta name="msapplication-TileColor" content="#080b18" />
-        {/* Preload LCP hero image — injected here because HeroSection is dynamically imported
-            and the browser would otherwise discover the image too late (causing 700ms+ delay). */}
-        {/* Mobile (≤640px): 420w src */}
-        {/* eslint-disable-next-line @next/next/no-head-element */}
-        <link
-          rel="preload"
-          as="image"
-          // @ts-expect-error — imagesrcset/imagesizes are valid HTML attributes for responsive image preloading
-          imagesrcset="/_next/image?url=%2Fassets%2Fimages%2Fprofile-1.webp&w=420&q=80 420w, /_next/image?url=%2Fassets%2Fimages%2Fprofile-1.webp&w=640&q=80 640w"
-          imagesizes="(max-width: 640px) 340px, (max-width: 1024px) 400px, 420px"
-          href="/_next/image?url=%2Fassets%2Fimages%2Fprofile-1.webp&w=640&q=80"
-          fetchpriority="high"
-        />
+
         <meta name="google-site-verification" content="lZevZx54t1KUCuL6xZ8zx40hrTjWcpncymgAtZYfKvs" />
       </head>
       <body

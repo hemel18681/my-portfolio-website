@@ -140,7 +140,7 @@ export default function HeroSection() {
     }
 
     const startCanvas = () => {
-      if (isRunning || !canvas) return
+      return; // Disabled to improve PageSpeed score
       const ctx = canvas.getContext('2d')
       if (!ctx) return
       
@@ -171,7 +171,7 @@ export default function HeroSection() {
     
     const handleMediaChange = (e: MediaQueryListEvent | MediaQueryList) => {
       if (e.matches) {
-        startCanvas()
+        // startCanvas()
       } else {
         stopCanvas()
       }
@@ -263,7 +263,7 @@ export default function HeroSection() {
           <div className="md:col-span-7 lg:col-span-7 flex flex-col items-start text-left">
             {/* Status Beacon Tag */}
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#10131d]/90 border border-indigo-500/25 mb-6 backdrop-blur-md hover:border-indigo-400/50 transition-colors shadow-lg shadow-black/40"
@@ -279,7 +279,7 @@ export default function HeroSection() {
 
             {/* Display Headline */}
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={false}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
               className="mb-4"
@@ -295,7 +295,7 @@ export default function HeroSection() {
 
             {/* Role Monospace Bar */}
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="flex items-center gap-3 mb-6"
@@ -308,7 +308,7 @@ export default function HeroSection() {
 
             {/* Subtitle Bio */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-base sm:text-lg leading-relaxed text-slate-300 max-w-2xl mb-8 font-sans"
@@ -323,7 +323,7 @@ export default function HeroSection() {
 
             {/* Action Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               className="flex flex-wrap items-center gap-4 mb-10 w-full sm:w-auto"
@@ -471,16 +471,17 @@ export default function HeroSection() {
                       transition={{ duration: activeImageIndex === 0 ? 0 : 0.35, ease: 'easeInOut' }}
                       className="relative w-full h-full"
                     >
-                      <Image
-                        src={profileImages[activeImageIndex].src}
-                        alt={profileImages[activeImageIndex].alt}
-                        fill
-                        priority
-                        quality={80}
-                        fetchPriority="high"
-                        className="object-cover object-[center_12%]"
-                        sizes="(max-width: 640px) 340px, (max-width: 1024px) 400px, 420px"
-                      />
+                        <Image
+                          src={profileImages[activeImageIndex].src}
+                          alt={profileImages[activeImageIndex].alt}
+                          fill
+                          priority
+                          unoptimized
+                          quality={80}
+                          fetchPriority="high"
+                          className="object-cover object-[center_12%]"
+                          sizes="(max-width: 640px) 340px, (max-width: 1024px) 400px, 420px"
+                        />
                     </motion.div>
                   </AnimatePresence>
 

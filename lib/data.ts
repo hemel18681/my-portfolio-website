@@ -1,5 +1,14 @@
 export const SITE_URL = 'https://hemel18681.netlify.app/'
 
+/** Professional career start (June 2021). Experience is derived from this, never hard-coded. */
+export const CAREER_START = new Date(2021, 5, 1)
+
+/** Years of experience rounded DOWN to the nearest 0.5 (e.g. 5.3 -> 5, 4.7 -> 4.5), shown as "5+". */
+export function getYearsOfExperience(now: Date = new Date()): number {
+  const years = (now.getTime() - CAREER_START.getTime()) / (1000 * 60 * 60 * 24 * 365.25)
+  return Math.max(0, Math.floor(years * 2) / 2)
+}
+
 export const profile = {
   name: 'Asif Uddin Ahmed Hemel',
   firstName: 'Asif',
@@ -10,7 +19,7 @@ export const profile = {
   location: 'Dhaka, Bangladesh',
   timezone: 'UTC+6',
   languages: ['English', 'Hindi', 'Bangla'],
-  yearsOfExperience: 4.5,
+  yearsOfExperience: getYearsOfExperience(),
   totalProjects: 25,
   branchesDeployed: 300,
   availability: 'open',
@@ -25,7 +34,7 @@ export const socialLinks = [
 ]
 
 export const stats = [
-  { label: 'Years Experience', value: 4.5, suffix: '+' },
+  { label: 'Years Experience', value: getYearsOfExperience(), suffix: '+' },
   { label: 'Projects Delivered', value: 25, suffix: '+' },
   { label: 'Branches Deployed', value: 300, suffix: '+' },
   { label: 'Client Satisfaction', value: 100, suffix: '%' },
@@ -326,6 +335,7 @@ export const navLinks = [
   { name: 'Projects', href: '#projects' },
   { name: 'AI Lab', href: '#ai-tools' },
   { name: 'Reviews', href: '#reviews' },
+  { name: 'Hire Me', href: '#hire' },
   { name: 'Contact', href: '#contact' },
 ]
 

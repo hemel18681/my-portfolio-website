@@ -1,43 +1,41 @@
 import type { MetadataRoute } from 'next'
 import { SITE_URL } from '@/lib/data'
+import { techPages } from '@/lib/tech-pages'
 
+// Note: SITE_URL already ends with '/'. Fragment URLs (#about, #skills...) were removed —
+// Google ignores fragments and treats them as duplicates of the homepage.
 export default function sitemap(): MetadataRoute.Sitemap {
+  const base = SITE_URL.replace(/\/$/, '')
   return [
     {
-      url: SITE_URL,
+      url: `${base}/`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'weekly',
       priority: 1,
     },
     {
-      url: `${SITE_URL}#about`,
+      url: `${base}/hire`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.9,
     },
-    {
-      url: `${SITE_URL}#skills`,
+    ...techPages.map((p) => ({
+      url: `${base}/hire/${p.slug}`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'monthly' as const,
       priority: 0.8,
-    },
+    })),
     {
-      url: `${SITE_URL}#experience`,
+      url: `${base}/llms.txt`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.8,
+      priority: 0.5,
     },
     {
-      url: `${SITE_URL}#projects`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-    },
-    {
-      url: `${SITE_URL}#contact`,
+      url: `${base}/llms-full.txt`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
-      priority: 0.7,
+      priority: 0.5,
     },
   ]
 }

@@ -3,6 +3,8 @@
  * Works seamlessly with server-side /api/gemini route, client-side key, or offline preview.
  */
 
+import { profile } from '@/lib/data'
+
 const CLIENT_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_GENAI_API_KEY || ''
 
 export function isGeminiConfigured(): boolean {
@@ -109,7 +111,7 @@ function getOfflineResponse(prompt: string, isError = false, errorMsg = ''): str
 Based on the role requirements provided:
 
 **Opening:**
-"With 4.5+ years of experience in enterprise web architectures and full-stack engineering, I specialize in designing scalable systems, accelerating performance, and leading technical deliveries."
+"With ${profile.yearsOfExperience}+ years of experience in enterprise web architectures and full-stack engineering, I specialize in designing scalable systems, accelerating performance, and leading technical deliveries."
 
 **Key Strengths for This Role:**
 • **Frontend Architecture**: Expert in React, Next.js 15, and Angular with a focus on web vitals, having boosted application throughput by 200%
