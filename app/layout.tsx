@@ -308,6 +308,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="/_next/image?url=%2Fassets%2Fimages%2Fprofile-1.webp&w=640&q=80"
           fetchpriority="high"
         />
+        <meta name="google-site-verification" content="lZevZx54t1KUCuL6xZ8zx40hrTjWcpncymgAtZYfKvs" />
       </head>
       <body
         className="font-sans bg-[#080b18] text-slate-200 antialiased selection:bg-indigo-500 selection:text-white"
