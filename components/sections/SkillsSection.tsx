@@ -225,7 +225,7 @@ export default function SkillsSection() {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
                 onMouseEnter={() => playHover()}
-                title={`${tool.name} (${tool.level}%)`}
+                title={tool.name}
                 className="flex items-center justify-center sm:justify-start p-3 sm:p-4 border border-indigo-500/15 rounded-2xl bg-[#10131d] hover:bg-[#161a28] hover:border-indigo-500/35 transition-all duration-200 group cursor-default shadow-lg shadow-black/40"
               >
                 {/* Icon Container */}
@@ -244,10 +244,6 @@ export default function SkillsSection() {
                     <p className="text-xs text-slate-400 truncate font-mono">
                       {tool.categoryLabel}
                     </p>
-                    <span className="text-slate-600 text-[10px]">•</span>
-                    <span className="text-[10px] font-mono text-emerald-400 font-medium">
-                      {tool.level}%
-                    </span>
                   </div>
                 </div>
               </motion.div>
